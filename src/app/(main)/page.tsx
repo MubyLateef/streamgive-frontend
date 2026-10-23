@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
 import { HowItWorks } from '@/components/landing/HowItWorks';
 import { StatsStrip } from '@/components/landing/StatsStrip';
+import { StatsStripSkeleton } from '@/components/landing/StatsStripSkeleton';
 
 export default async function Home() {
   const t = await getTranslations('HomePage');
@@ -20,7 +22,9 @@ export default async function Home() {
             {t('exploreNgos')}
           </Link>
         </section>
-        <StatsStrip />
+        <Suspense fallback={<StatsStripSkeleton />}>
+          <StatsStrip />
+        </Suspense>
         <HowItWorks />
       </main>
     </>
